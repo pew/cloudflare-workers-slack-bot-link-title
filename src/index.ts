@@ -49,11 +49,15 @@ export default {
           const url = new URL(element)
           console.log('incoming link: ', url)
 
-          const title = await linkTitle(url)
-          console.log('title: ', title)
-
           const songInformation = await getSong(url)
           console.log('songwhip: ', songInformation)
+
+          let text
+          if (songInformation.url.length > 0) {
+            text = `${songInformation.name} - ${songInformation.url}`
+          } else {
+            text = await linkTitle(url)
+          }
 
           await fetch('https://slack.com/api/chat.postMessage', {
             method: 'POST',
@@ -63,7 +67,7 @@ export default {
             },
             body: JSON.stringify({
               channel,
-              text: `${title} ${songInformation.url}`,
+              text,
             }),
           })
         }
