@@ -10,7 +10,7 @@ async function linkTitle(url: URL) {
     resp = await fetch(resp.url)
   }
 
-  const rewriter = new HTMLRewriter() // TODO: figure out how HTMLRewriter() really works
+  const rewriter = new HTMLRewriter() // TODO: #1 figure out how HTMLRewriter() really works
   await rewriter
     .on('*', {
       element(el) {
