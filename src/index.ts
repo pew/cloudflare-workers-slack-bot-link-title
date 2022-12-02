@@ -1,3 +1,5 @@
+import { getSong } from './songwhip'
+
 export interface Env {
   slackToken: string
 }
@@ -46,7 +48,13 @@ export default {
           const element = links[index].url
           const url = new URL(element)
           console.log('incoming link: ', url)
+
           const title = await linkTitle(url)
+          console.log('title: ', title)
+
+          const songInformation = await getSong(url)
+          console.log('songwhip: ', songInformation)
+
           await fetch('https://slack.com/api/chat.postMessage', {
             method: 'POST',
             headers: {
@@ -55,7 +63,7 @@ export default {
             },
             body: JSON.stringify({
               channel,
-              text: title,
+              text: `${title} ${songInformation.url}`,
             }),
           })
         }
