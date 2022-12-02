@@ -1,0 +1,4 @@
+name = "cloudflare-workers-slack-bot-link-title"
+main = "src/index.ts"
+workers_dev = true
+compatibility_date = "2022-12-01"
